@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function LandingPage() {
   return (
     <div
@@ -27,7 +29,7 @@ function LandingPage() {
       </div>
 
       <Link
-        href="/calculator"
+        to="/calculator"
         className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-teal-400 to-emerald-500 text-white font-semibold rounded-full transition-all duration-300 hover:from-teal-500 hover:to-emerald-600 hover:scale-105 hover:shadow-lg hover:shadow-teal-500/30 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-transparent mb-8"
       >
         Launch Calculator
