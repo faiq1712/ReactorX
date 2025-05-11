@@ -514,15 +514,18 @@ function EquilibriumCalculator() {
                 <strong>Equilibrium Conversion:</strong>{" "}
                 {results.eqConversion.toFixed(4)}
               </p>
-              <p>
-                <strong> Heat removed(kcal): </strong>
-                {(
-                  (-inputs.Fa0 *
-                    inputs.Ca *
-                    (results.adiabaticEqTemp.toFixed(2) - inputs.coolingTemp)) /
-                  1000
-                ).toFixed(2)}
-              </p>
+              {results.stages && results.stages.length > 1 && (
+                <p>
+                  <strong> Heat removed(kcal): </strong>
+                  {(
+                    (inputs.Fa0 *
+                      inputs.Ca *
+                      (results.adiabaticEqTemp.toFixed(2) -
+                        inputs.coolingTemp)) /
+                    1000
+                  ).toFixed(2)}
+                </p>
+              )}
             </div>
 
             {results.stages && results.stages.length > 1 && (
@@ -533,6 +536,8 @@ function EquilibriumCalculator() {
                     idx === 0
                       ? results.eqConversion
                       : results.stages[idx].conversion;
+
+                  const isLastReactor = idx === results.stages.length - 2;
 
                   return (
                     <div key={idx} className="stage">
@@ -547,15 +552,17 @@ function EquilibriumCalculator() {
                       <p>
                         Cumulative Conversion: {stage.conversion.toFixed(4)}
                       </p>
-                      <p>
-                        <strong>Heat removed (kcal): </strong>
-                        {(
-                          (-inputs.Fa0 *
-                            inputs.Ca *
-                            (stage.eqTemp - inputs.coolingTemp)) /
-                          1000
-                        ).toFixed(2)}
-                      </p>
+                      {!isLastReactor && (
+                        <p>
+                          <strong>Heat removed (kcal): </strong>
+                          {(
+                            (inputs.Fa0 *
+                              inputs.Ca *
+                              (stage.eqTemp - inputs.coolingTemp)) /
+                            1000
+                          ).toFixed(2)}
+                        </p>
+                      )}
                     </div>
                   );
                 })}
